@@ -24,8 +24,12 @@
   </style>
 </head>
 <body>
-  <video id="video" width="720" height="560" autoplay muted></video>
-  <canvas id="canv" width="720" height="560"></canvas>
+  <video id="video" width="720" height="560" autoplay muted></video><br>
+  <canvas id="canv" width="720" height="560"></canvas><br>
+  <img src="" id="imageEjs">
 
 </body>
+<script id="getNames">
+  var names = '<%- JSON.stringify(nameList) %>'
+</script>
 </html>

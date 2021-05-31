@@ -6,18 +6,23 @@ const path = require('path')
 const fs = require('fs')
 var base64ToImage = require('base64-to-image')
 
+app.set('view engine','ejs')
+
 global.__dirname = __dirname
 
 app.use(express.static(path.join(__dirname,'./dist')))
 app.use(express.static(path.join(__dirname,'./dist/models')))
+app.use(express.static(path.join(__dirname,`./img`)))
 
 app.get("/",(req,res)=>{
 
     user.findAll().then((users)=>{
-
+        let nameList = []
         users.forEach(user => {
             let tmp = user.data
             let name = user.fname + " " + user.lname
+
+            nameList.push(name)
 
             if(fs.existsSync(path.join(__dirname + `/img/${name}`))){
                 console.log(`${name} is successful loaded`)
@@ -40,8 +45,11 @@ app.get("/",(req,res)=>{
             }
         });
 
-
-        res.sendFile(path.join(`${__dirname}/views/index.html`))
+        console.log(nameList)
+        //res.sendFile(path.join(`${__dirname}/views/index.html`))
+        res.render('index',{
+            nameList : JSON.stringify(nameList),
+        })
         
 
         
